@@ -1,0 +1,28 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environment
+env/
+venv/
+fast-automation-env/
+
+# VSCode settings (optional)
+.vscode/
+
+# macOS
+.DS_Store
+
+# Logs and temp files
+*.log
+*.tmp
+
+# Python-specific
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Environment files
+.env

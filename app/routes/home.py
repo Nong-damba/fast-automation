@@ -3,6 +3,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.responses import JSONResponse
 from app.core.effective_date_generator import generate_sql_script
 from app.core.policy_amendment_generator import generate_sql_update_policy
+from app.core.update_policy_status_generator import generate_sql_update_status
 
 templates = Jinja2Templates(directory="app/templates")
 router = APIRouter()
@@ -31,6 +32,18 @@ async def generate_amend_contract_sql(
 ):
     try:
         sql_script = generate_sql_update_policy(current_policy, amended_policy, username)
+        return JSONResponse({"success": True, "sql_script": sql_script})
+    except Exception as e:
+        return JSONResponse({"success": False, "message": str(e), "sql_script": ""})
+
+@router.post("/generate-update-status-sql")
+async def generate_update_status_sql(
+    username: str = Form(...),
+    policy_number: str = Form(...),
+    status: str = Form(...)
+):
+    try:
+        sql_script = generate_sql_update_status(username, policy_number, status)
         return JSONResponse({"success": True, "sql_script": sql_script})
     except Exception as e:
         return JSONResponse({"success": False, "message": str(e), "sql_script": ""})

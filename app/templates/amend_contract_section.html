@@ -1,0 +1,37 @@
+<div id="amend-contract" class="section" style="display: none;">
+    <div class="upload-section">
+        <h2>Amend Contract</h2>
+        <p class="upload-description">Enter the details below to generate the SQL script for amending a contract.</p>
+        <form id="amend-form" class="upload-form">
+            <div class="form-group">
+                <label for="amend-username">Username</label>
+                <input type="text" id="amend-username" class="form-input" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="amend-current-policy">Current Policy No</label>
+                <input type="text" id="amend-current-policy" class="form-input" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="amend-amended-policy">Amended Policy No</label>
+                <input type="text" id="amend-amended-policy" class="form-input" required autocomplete="off">
+            </div>
+            <button type="submit" class="submit-btn" id="amend-generate-btn">Generate SQL</button>
+        </form>
+    </div>
+    <div id="amend-sql-section" class="sql-section" style="display: none;">
+        <div class="sql-header">
+            <h3>Generated SQL Script</h3>
+            <div class="sql-actions">
+                <button id="amend-copy-btn" class="action-btn">
+                    <i class="fas fa-copy"></i>
+                    Copy
+                </button>
+                <button id="amend-download-btn" class="action-btn">
+                    <i class="fas fa-download"></i>
+                    Download
+                </button>
+            </div>
+        </div>
+        <pre><code id="amend-sql-code" class="sql"></code></pre>
+    </div>
+</div> 

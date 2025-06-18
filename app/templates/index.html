@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
     <!-- Add version parameter to force CSS refresh -->
-    <link rel="stylesheet" href="{{ url_for('static', path='css/style.css') }}?v=1.1">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}?v=1.1">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
@@ -27,92 +27,22 @@
                 <a href="#" class="nav-item" id="nav-amend-contract" onclick="showSection('amend-contract')">
                     Amend Contract
                 </a>
+                <a href="#" class="nav-item" id="nav-update-status" onclick="showSection('update-status')">
+                    Update Policy Status
+                </a>
             </nav>
+            <div class="sidebar-resizer"></div>
         </aside>
 
         <!-- Main Content -->
         <main class="main-content">
             <div class="content-wrapper">
                 <!-- Update Effective Date Section -->
-                <div id="update-effective-date" class="section">
-                    <div class="upload-section">
-                        <h2>Update Effective Date</h2>
-                        <p class="upload-description">Upload a .txt file containing username and policy data to generate SQL script.</p>
-                        <form id="upload-form" class="upload-form">
-                            <div class="file-input-container">
-                                <input type="file" id="file-input" class="file-input" accept=".txt">
-                                <label for="file-input" class="file-input-label">
-                                    Choose File
-                                </label>
-                                <span id="file-name" class="file-name">No file chosen</span>
-                            </div>
-                            <button type="submit" class="submit-btn" id="generate-sql-btn">
-                                Generate SQL
-                            </button>
-                        </form>
-                        <pre class="sample-input-block">&lt;username&gt;
-
-&lt;policy_number&gt; &lt;YYYY-MM-DD&gt;
-&lt;policy_number&gt; &lt;YYYY-MM-DD&gt;
-...
-</pre>
-                    </div>
-
-                    <div id="sql-section" class="sql-section" style="display: none;">
-                        <div class="sql-header">
-                            <h3>Generated SQL Script</h3>
-                            <div class="sql-actions">
-                                <button id="copy-btn" class="action-btn">
-                                    <i class="fas fa-copy"></i>
-                                    Copy
-                                </button>
-                                <button id="download-btn" class="action-btn">
-                                    <i class="fas fa-download"></i>
-                                    Download
-                                </button>
-                            </div>
-                        </div>
-                        <pre><code id="sql-code" class="sql"></code></pre>
-                    </div>
-                </div>
+                {% include 'update_effective_date_section.html' %}
                 <!-- Amend Contract Section -->
-                <div id="amend-contract" class="section" style="display: none;">
-                    <div class="upload-section">
-                        <h2>Amend Contract</h2>
-                        <p class="upload-description">Enter the details below to generate the SQL script for amending a contract.</p>
-                        <form id="amend-form" class="upload-form">
-                            <div class="form-group">
-                                <label for="amend-username">Username</label>
-                                <input type="text" id="amend-username" class="form-input" required autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <label for="amend-current-policy">Current Policy No</label>
-                                <input type="text" id="amend-current-policy" class="form-input" required autocomplete="off">
-                            </div>
-                            <div class="form-group">
-                                <label for="amend-amended-policy">Amended Policy No</label>
-                                <input type="text" id="amend-amended-policy" class="form-input" required autocomplete="off">
-                            </div>
-                            <button type="submit" class="submit-btn" id="amend-generate-btn">Generate SQL</button>
-                        </form>
-                    </div>
-                    <div id="amend-sql-section" class="sql-section" style="display: none;">
-                        <div class="sql-header">
-                            <h3>Generated SQL Script</h3>
-                            <div class="sql-actions">
-                                <button id="amend-copy-btn" class="action-btn">
-                                    <i class="fas fa-copy"></i>
-                                    Copy
-                                </button>
-                                <button id="amend-download-btn" class="action-btn">
-                                    <i class="fas fa-download"></i>
-                                    Download
-                                </button>
-                            </div>
-                        </div>
-                        <pre><code id="amend-sql-code" class="sql"></code></pre>
-                    </div>
-                </div>
+                {% include 'amend_contract_section.html' %}
+                <!-- Update Policy Status Section -->
+                {% include 'update_policy_status_section.html' %}
             </div>
         </main>
     </div>

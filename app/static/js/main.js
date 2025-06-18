@@ -100,8 +100,10 @@ downloadBtn.addEventListener('click', () => {
 function showSection(sectionId) {
     document.getElementById('update-effective-date').style.display = sectionId === 'update-effective-date' ? 'block' : 'none';
     document.getElementById('amend-contract').style.display = sectionId === 'amend-contract' ? 'block' : 'none';
+    document.getElementById('update-status').style.display = sectionId === 'update-status' ? 'block' : 'none';
     document.getElementById('nav-effective-date').classList.toggle('active', sectionId === 'update-effective-date');
     document.getElementById('nav-amend-contract').classList.toggle('active', sectionId === 'amend-contract');
+    document.getElementById('nav-update-status').classList.toggle('active', sectionId === 'update-status');
 }
 
 // Amend Contract form logic
@@ -111,6 +113,7 @@ const amendSqlSection = document.getElementById('amend-sql-section');
 const amendSqlCode = document.getElementById('amend-sql-code');
 const amendCopyBtn = document.getElementById('amend-copy-btn');
 const amendDownloadBtn = document.getElementById('amend-download-btn');
+
 amendForm && amendForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const username = document.getElementById('amend-username').value.trim();
@@ -151,7 +154,7 @@ amendCopyBtn && amendCopyBtn.addEventListener('click', () => {
     const text = amendSqlCode.textContent;
     navigator.clipboard.writeText(text).then(() => {
         const originalText = amendCopyBtn.innerHTML;
-        amendCopyBtn.innerHTML = 'Copied!';
+        amendCopyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
         setTimeout(() => {
             amendCopyBtn.innerHTML = originalText;
         }, 2000);
@@ -159,6 +162,7 @@ amendCopyBtn && amendCopyBtn.addEventListener('click', () => {
         alert('Failed to copy SQL to clipboard');
     });
 });
+
 amendDownloadBtn && amendDownloadBtn.addEventListener('click', () => {
     const text = amendSqlCode.textContent;
     const blob = new Blob([text], { type: 'text/plain' });
@@ -171,3 +175,109 @@ amendDownloadBtn && amendDownloadBtn.addEventListener('click', () => {
     window.URL.revokeObjectURL(url);
     document.body.removeChild(a);
 });
+
+// Update Policy Status form logic
+const statusForm = document.getElementById('status-form');
+const statusGenerateBtn = document.getElementById('status-generate-btn');
+const statusSqlSection = document.getElementById('status-sql-section');
+const statusSqlCode = document.getElementById('status-sql-code');
+const statusCopyBtn = document.getElementById('status-copy-btn');
+const statusDownloadBtn = document.getElementById('status-download-btn');
+
+statusForm && statusForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const username = document.getElementById('status-username').value.trim();
+    const policyNumber = document.getElementById('status-policy').value.trim();
+    const status = document.getElementById('status-select').value;
+    if (!username || !policyNumber) {
+        alert('Please fill in all fields.');
+        return;
+    }
+    statusGenerateBtn.disabled = true;
+    statusGenerateBtn.textContent = 'Generating...';
+    try {
+        const formData = new FormData();
+        formData.append('username', username);
+        formData.append('policy_number', policyNumber);
+        formData.append('status', status);
+        const response = await fetch('/generate-update-status-sql', {
+            method: 'POST',
+            body: formData
+        });
+        const data = await response.json();
+        if (data.success) {
+            statusSqlCode.textContent = data.sql_script;
+            statusSqlSection.style.display = 'block';
+            hljs.highlightElement(statusSqlCode);
+        } else {
+            alert(data.message || 'Error generating SQL script');
+        }
+    } catch (error) {
+        alert('Error generating SQL script. Please try again.');
+    }
+    statusGenerateBtn.disabled = false;
+    statusGenerateBtn.textContent = 'Generate SQL';
+});
+
+// Copy and download for Update Policy Status
+statusCopyBtn && statusCopyBtn.addEventListener('click', () => {
+    const text = statusSqlCode.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+        const originalText = statusCopyBtn.innerHTML;
+        statusCopyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+        setTimeout(() => {
+            statusCopyBtn.innerHTML = originalText;
+        }, 2000);
+    }).catch(err => {
+        alert('Failed to copy SQL to clipboard');
+    });
+});
+
+statusDownloadBtn && statusDownloadBtn.addEventListener('click', () => {
+    const text = statusSqlCode.textContent;
+    const blob = new Blob([text], { type: 'text/plain' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'update_policy_status.sql';
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+});
+
+// Sidebar resizer functionality
+const sidebar = document.querySelector('.sidebar');
+const resizer = document.querySelector('.sidebar-resizer');
+let isResizing = false;
+
+if (sidebar && resizer) {
+    resizer.addEventListener('mousedown', function(e) {
+        if (window.innerWidth <= 768) return; // Disable on mobile
+        isResizing = true;
+        document.body.style.cursor = 'ew-resize';
+        document.body.style.userSelect = 'none';
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!isResizing) return;
+        let newWidth = e.clientX - sidebar.getBoundingClientRect().left;
+        newWidth = Math.max(120, Math.min(350, newWidth));
+        sidebar.style.width = newWidth + 'px';
+    });
+
+    document.addEventListener('mouseup', function(e) {
+        if (isResizing) {
+            isResizing = false;
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+        }
+    });
+
+    // Responsive: reset sidebar width on resize if mobile
+    window.addEventListener('resize', function() {
+        if (window.innerWidth <= 768) {
+            sidebar.style.width = '';
+        }
+    });
+}

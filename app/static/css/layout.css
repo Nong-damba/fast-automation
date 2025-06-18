@@ -1,0 +1,107 @@
+/* layout.css - Layout styles for grid, containers, navbar, sidebar, main content */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fafbfc;
+    color: #222;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    grid-template-rows: 48px 1fr;
+    grid-template-areas:
+        "navbar navbar"
+        "sidebar main";
+    min-height: 100vh;
+    background: #fafbfc;
+}
+
+/* Navbar Styles */
+.navbar {
+    grid-area: navbar;
+    background: #fff;
+    border-bottom: 1px solid #eaeaea;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    padding: 0 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 48px;
+}
+
+.navbar-brand {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #222;
+    letter-spacing: 0.2px;
+}
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+}
+
+/* Sidebar Styles */
+.sidebar {
+    grid-area: sidebar;
+    background: #fff;
+    border-right: 1px solid #eaeaea;
+    box-shadow: 1px 0 4px rgba(0,0,0,0.02);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    min-width: 180px;
+    max-width: none;
+    width: 180px;
+    overflow: auto;
+    position: relative;
+}
+
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.5rem;
+}
+
+.main-content {
+    grid-area: main;
+    padding: 2rem 0;
+    background: #fafbfc;
+    min-height: 100vh;
+}
+
+.content-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+/* Sidebar Resizable Styles */
+.sidebar-resizer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100%;
+    cursor: ew-resize;
+    background: transparent;
+    z-index: 10;
+    transition: background 0.2s;
+}
+.sidebar-resizer:hover {
+    background: rgba(0,0,0,0.07);
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        min-width: 100px;
+        max-width: 100vw;
+        width: 100vw;
+        resize: none;
+    }
+    .sidebar-resizer {
+        display: none;
+    }
+} 

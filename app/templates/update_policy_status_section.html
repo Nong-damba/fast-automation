@@ -1,0 +1,82 @@
+<div id="update-status" class="section" style="display: none;">
+    <div class="upload-section">
+        <h2>Update Policy Status</h2>
+        <p class="upload-description">Enter the details below to generate the SQL script for updating policy status.</p>
+        <form id="status-form" class="upload-form">
+            <div class="form-group">
+                <label for="status-username">Username</label>
+                <input type="text" id="status-username" class="form-input" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="status-policy">Policy No</label>
+                <input type="text" id="status-policy" class="form-input" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="status-select">Update Status</label>
+                <select id="status-select" class="form-input" required>
+                    <option value="Rescission" selected>Rescission</option>
+                    <option value="Pending Lapse">Pending Lapse</option>
+                    <option value="Issued">Issued</option>
+                    <option value="Pre Term">Pre Term</option>
+                    <option value="Active">Active</option>
+                    <option value="Disability">Disability</option>
+                    <option value="Death Waiver">Death Waiver</option>
+                    <option value="Paid Up">Paid Up</option>
+                    <option value="Daily Cost">Daily Cost</option>
+                    <option value="ETI">ETI</option>
+                    <option value="RPU">RPU</option>
+                    <option value="Matured">Matured</option>
+                    <option value="Expired">Expired</option>
+                    <option value="Terminated">Terminated</option>
+                    <option value="Max Loan Surrender">Max Loan Surrender</option>
+                    <option value="Lapsed">Lapsed</option>
+                    <option value="Do not Reinstate">Do not Reinstate</option>
+                    <option value="Cancel Not Taken">Cancel Not Taken</option>
+                    <option value="Surrendered">Surrendered</option>
+                    <option value="Converted">Converted</option>
+                    <option value="Reissued">Reissued</option>
+                    <option value="Annuitized">Annuitized</option>
+                    <option value="Death Claim Approved">Death Claim Approved</option>
+                    <option value="Rider Claimed or Exercised">Rider Claimed or Exercised</option>
+                    <option value="Death Claim Pending">Death Claim Pending</option>
+                    <option value="Pending">Pending</option>
+                    <option value="APL">APL</option>
+                    <option value="Over Loaned">Over Loaned</option>
+                    <option value="Claim Payout">Claim Payout</option>
+                    <option value="Claim Paid">Claim Paid</option>
+                    <option value="Pending Claim">Pending Claim</option>
+                    <option value="Terminated - Conv Pd">Terminated - Conv Pd</option>
+                    <option value="Incomplete">Incomplete</option>
+                    <option value="Suspended - Active">Suspended - Active</option>
+                    <option value="Suspend - Not Active">Suspend - Not Active</option>
+                    <option value="Approved">Approved</option>
+                    <option value="Declined">Declined</option>
+                    <option value="Postponed">Postponed</option>
+                    <option value="Payout">Payout</option>
+                    <option value="Due and Unpaid">Due and Unpaid</option>
+                    <option value="Death Claim Paid">Death Claim Paid</option>
+                    <option value="Active Restricted">Active Restricted</option>
+                    <option value="Unemployed">Unemployed</option>
+                    <option value="Canceled-Free Look">Canceled-Free Look</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn" id="status-generate-btn">Generate SQL</button>
+        </form>
+    </div>
+    <div id="status-sql-section" class="sql-section" style="display: none;">
+        <div class="sql-header">
+            <h3>Generated SQL Script</h3>
+            <div class="sql-actions">
+                <button id="status-copy-btn" class="action-btn">
+                    <i class="fas fa-copy"></i>
+                    Copy
+                </button>
+                <button id="status-download-btn" class="action-btn">
+                    <i class="fas fa-download"></i>
+                    Download
+                </button>
+            </div>
+        </div>
+        <pre><code id="status-sql-code" class="sql"></code></pre>
+    </div>
+</div> 

@@ -1,0 +1,45 @@
+/* responsive.css - Media queries and responsive styles */
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 48px auto 1fr;
+        grid-template-areas:
+            "navbar"
+            "sidebar"
+            "main";
+    }
+    .sidebar {
+        min-width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #eaeaea;
+        box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+        flex-direction: row;
+        overflow-x: auto;
+    }
+    .main-content {
+        padding: 1rem 0;
+    }
+    .content-wrapper {
+        padding: 0 0.5rem;
+    }
+}
+
+@media (max-width: 1100px) {
+    .content-wrapper {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 700px) {
+    #amend-form {
+        gap: 0.7rem;
+    }
+    .form-group {
+        margin-bottom: 0.4rem;
+    }
+    #amend-generate-btn {
+        padding: 0.3rem 0.8rem;
+        font-size: 0.95rem;
+    }
+} 

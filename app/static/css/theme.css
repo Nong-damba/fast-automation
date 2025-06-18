@@ -1,0 +1,27 @@
+/* theme.css - Variables, color schemes, fonts */
+
+:root {
+    --primary-bg: #fafbfc;
+    --primary-color: #222;
+    --secondary-bg: #fff;
+    --border-color: #eaeaea;
+    --shadow: 0 1px 4px rgba(0,0,0,0.03);
+    --sidebar-width: 180px;
+    --navbar-height: 48px;
+    --radius: 6px;
+    --accent: #bfc7d1;
+    --muted: #888;
+    --input-bg: #fafbfc;
+    --input-border: #eaeaea;
+    --input-focus: #bfc7d1;
+    --button-bg: #f8f8f8;
+    --button-hover-bg: #eaeaea;
+    --button-color: #222;
+    --button-hover-color: #111;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: var(--primary-color);
+    background: var(--primary-bg);
+} 

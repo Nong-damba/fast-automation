@@ -1,0 +1,263 @@
+/* components.css - Reusable UI components: buttons, forms, cards, upload-section, sql-section, etc. */
+
+/* Sidebar nav items */
+.nav-item {
+    padding: 0.7rem 1.2rem;
+    color: #444;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 0.2s, color 0.2s;
+}
+
+.nav-item:hover, .nav-item.active {
+    background: #f2f2f2;
+    color: #111;
+}
+
+/* Upload Section Styles */
+.upload-section {
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    padding: 0;
+    margin-bottom: 2rem;
+    overflow: hidden;
+}
+
+.upload-section h2 {
+    background: #f8f8f8;
+    color: #222;
+    margin: 0;
+    padding: 1rem 1.2rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.upload-description {
+    color: #444;
+    background: #fafbfc;
+    padding: 1rem 1.2rem 0.5rem 1.2rem;
+    font-size: 0.97rem;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.upload-form {
+    padding: 1.1rem 1.2rem 1.2rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+.file-input-container {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.file-input {
+    display: none;
+}
+
+.file-input-label {
+    background: #f8f8f8;
+    color: #222;
+    padding: 0.4rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1px solid #eaeaea;
+    font-size: 0.97rem;
+    transition: background 0.2s, border 0.2s;
+    box-shadow: none;
+}
+
+.file-input-label:hover {
+    background: #eaeaea;
+    border: 1px solid #bfc7d1;
+    color: #111;
+}
+
+.file-name {
+    color: #888;
+    font-size: 0.95rem;
+    font-style: italic;
+}
+
+.submit-btn {
+    background: #f8f8f8;
+    color: #222;
+    border: 1px solid #eaeaea;
+    padding: 0.4rem 1.2rem;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.97rem;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background 0.2s, color 0.2s;
+    width: fit-content;
+    align-self: flex-start;
+}
+
+.submit-btn:hover:enabled {
+    background: #eaeaea;
+    color: #111;
+    border-color: #bfc7d1;
+}
+
+.submit-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* SQL Section Styles */
+.sql-section {
+    margin-top: 2rem;
+    background: #fff;
+    border: 1px solid #eaeaea;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    padding: 0;
+    overflow: hidden;
+}
+
+.sql-header {
+    background: #f8f8f8;
+    color: #222;
+    padding: 1rem 1.2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.sql-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    background: #f8f8f8;
+    color: #222;
+    border: 1px solid #eaeaea;
+    padding: 0.3rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.97rem;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.action-btn:hover {
+    background: #eaeaea;
+    color: #111;
+    border-color: #bfc7d1;
+}
+
+/* Restore previous SQL code block style and remove horizontal scroll */
+pre {
+    background: #3a3636;
+    color: #f8f8f8;
+    padding: 1rem 1.2rem;
+    border-radius: 0 0 6px 6px;
+    margin: 0;
+    font-size: 1rem;
+    font-family: 'Consolas', 'Menlo', 'Monaco', monospace;
+    border-top: 1px solid #eaeaea;
+    overflow-x: visible;
+    white-space: pre-wrap;
+    word-break: break-word;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+code.sql {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 1.5;
+    background: none;
+    color: inherit;
+    padding: 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    /* margin-bottom: 0.1rem; */
+}
+
+.form-input {
+    padding: 0.5rem 0.8rem;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    font-size: 1rem;
+    background: #fafbfc;
+    color: #222;
+    transition: border 0.2s;
+    max-width: 350px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    border-color: #bfc7d1;
+    outline: none;
+}
+
+#amend-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.1rem;
+}
+
+#amend-generate-btn {
+    background: #f8f8f8;
+    color: #222;
+    border: 1px solid #eaeaea;
+    padding: 0.4rem 1.2rem;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 0.97rem;
+    cursor: pointer;
+    box-shadow: none;
+    transition: background 0.2s, color 0.2s;
+    width: fit-content;
+    align-self: flex-start;
+}
+
+#amend-generate-btn:hover:enabled {
+    background: #eaeaea;
+    color: #111;
+    border-color: #bfc7d1;
+}
+
+#amend-generate-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.sample-input-block {
+    background: #f8f8f8;
+    color: #444;
+    font-size: 0.97rem;
+    padding: 0.8rem 1.2rem;
+    border-radius: 0 0 6px 6px;
+    margin: 0;
+    border-top: 1px solid #eaeaea;
+    font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+    white-space: pre-line;
+}
+
+#status-select {
+    position: relative;
+    z-index: 1;
+}
+
+.upload-section, .form-group {
+    overflow: visible;
+} 

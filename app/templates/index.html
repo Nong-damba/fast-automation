@@ -30,6 +30,9 @@
                 <a href="#" class="nav-item" id="nav-update-status" onclick="showSection('update-status')">
                     Update Policy Status
                 </a>
+                <a href="#" class="nav-item" id="nav-glp-update" onclick="showSection('glp-update')">
+                    GLP Update
+                </a>
             </nav>
             <div class="sidebar-resizer"></div>
         </aside>
@@ -43,6 +46,8 @@
                 {% include 'amend_contract_section.html' %}
                 <!-- Update Policy Status Section -->
                 {% include 'update_policy_status_section.html' %}
+                <!-- GLP Update Section -->
+                {% include 'glp_update_section.html' %}
             </div>
         </main>
     </div>

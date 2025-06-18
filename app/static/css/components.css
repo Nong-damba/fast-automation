@@ -209,6 +209,14 @@ code.sql {
     outline: none;
 }
 
+/* Textarea specific styles for GLP Update form */
+textarea.form-input {
+    resize: vertical;
+    min-height: 80px;
+    font-family: inherit;
+    line-height: 1.4;
+}
+
 #amend-form {
     display: flex;
     flex-direction: column;

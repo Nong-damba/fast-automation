@@ -1,0 +1,49 @@
+<div id="glp-update" class="section" style="display: none;">
+    <div class="upload-section">
+        <h2>GLP Update</h2>
+        <p class="upload-description">Enter the details below to generate the SQL script for updating GLP amounts and related data.</p>
+        <form id="glp-form" class="upload-form">
+            <div class="form-group">
+                <label for="glp-username">Username</label>
+                <input type="text" id="glp-username" class="form-input" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="glp-policy">Policy No</label>
+                <input type="text" id="glp-policy" class="form-input" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="glp-effective-date">Effective Date</label>
+                <input type="date" id="glp-effective-date" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="glp-amount">GLP Amount</label>
+                <input type="number" id="glp-amount" class="form-input" min="1" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="glp-epd-date">EPD Date</label>
+                <input type="date" id="glp-epd-date" class="form-input" required>
+            </div>
+            <div class="form-group">
+                <label for="glp-note">Note</label>
+                <textarea id="glp-note" class="form-input" rows="3" required autocomplete="off" placeholder="Enter note text..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn" id="glp-generate-btn">Generate SQL</button>
+        </form>
+    </div>
+    <div id="glp-sql-section" class="sql-section" style="display: none;">
+        <div class="sql-header">
+            <h3>Generated SQL Script</h3>
+            <div class="sql-actions">
+                <button id="glp-copy-btn" class="action-btn">
+                    <i class="fas fa-copy"></i>
+                    Copy
+                </button>
+                <button id="glp-download-btn" class="action-btn">
+                    <i class="fas fa-download"></i>
+                    Download
+                </button>
+            </div>
+        </div>
+        <pre><code id="glp-sql-code" class="sql"></code></pre>
+    </div>
+</div> 

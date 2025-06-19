@@ -75,8 +75,8 @@ BEGIN
         BEGIN TRAN
 
         -- Input variables
-        DECLARE @UserLogin NVARCHAR(100) = '{username}'; -- Replace with actual username
-        DECLARE @PolicyNumber NVARCHAR(50) = '{policy_number}'; -- Replace with actual policy number
+        DECLARE @UserLogin NVARCHAR(100) = '{username}'; -- username
+        DECLARE @PolicyNumber NVARCHAR(50) = '{policy_number}'; -- policy number
         DECLARE @NewStatus UNIQUEIDENTIFIER = '{status_uuid}'; -- ID
 
         -- Get user ID from login
@@ -99,8 +99,6 @@ BEGIN
         PRINT 'Policy status updated successfully.';
     END TRY
     BEGIN CATCH
-        ROLLBACK TRAN;
-        PRINT 'An error occurred. Update failed.';
         SELECT 
             ERROR_NUMBER() AS ErrorNumber,
             ERROR_SEVERITY() AS ErrorSeverity,
@@ -108,6 +106,9 @@ BEGIN
             ERROR_PROCEDURE() AS ErrorProcedure,
             ERROR_LINE() AS ErrorLine,
             ERROR_MESSAGE() AS ErrorMessage;
+            
+        ROLLBACK TRAN;
+        PRINT 'An error occurred. Update failed.';
     END CATCH
 END;
 """

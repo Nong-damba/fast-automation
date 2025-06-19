@@ -32,7 +32,7 @@ def generate_glp_update_sql(username: str, policy_number: str, effective_date: s
     BEGIN TRY
         BEGIN TRAN;
 
-        -- Input Variables (replace with actual values or pass dynamically)
+        -- Input Variables 
         DECLARE @UserLogin NVARCHAR(100) = '{username}';
         DECLARE @PolicyNumber NVARCHAR(50) = '{policy_number}';
         DECLARE @EffectiveDate DATE = '{effective_date}';
@@ -40,21 +40,21 @@ def generate_glp_update_sql(username: str, policy_number: str, effective_date: s
         DECLARE @EPDDate DATE = '{epd_date}';
         DECLARE @NoteText NVARCHAR(MAX) = '{note}';
 
-        -- Get user ID
+        -- user ID
         DECLARE @UserID UNIQUEIDENTIFIER = (
             SELECT Usr_ID 
             FROM Cc_Opt_Usr_UserLogin_S 
             WHERE Usr_LOGIN = @UserLogin
         );
 
-        -- Get Policy Header ID
+        -- Policy Header ID
         DECLARE @Poh_ID UNIQUEIDENTIFIER = (
             SELECT Poh_ID 
             FROM Cm_Opt_Poh_PolicyHdr_S 
             WHERE Poh_POLICYNUMBER = @PolicyNumber
         );
 
-        -- Get Tul_ID for matching Anniversary transaction
+        -- Tul_ID for matching Anniversary transaction
         DECLARE @Tul_ID UNIQUEIDENTIFIER = (
             SELECT Tul_ID
             FROM Cm_Opt_Tul_TrxResUL_S
@@ -68,7 +68,7 @@ def generate_glp_update_sql(username: str, policy_number: str, effective_date: s
                 AND Txh_TRXSTATUS LIKE '%02'
         );
 
-        -- Generate a new GUID for Notes
+        -- new GUID for Notes
         DECLARE @NoteID UNIQUEIDENTIFIER = NEWID();
 
         -- Update Cumulative GLP
@@ -147,7 +147,7 @@ def generate_glp_update_sql(username: str, policy_number: str, effective_date: s
             ERROR_PROCEDURE() AS ErrorProcedure,
             ERROR_LINE() AS ErrorLine,
             ERROR_MESSAGE() AS ErrorMessage;
-            
+
         ROLLBACK TRAN;
         PRINT 'Error occurred, transaction rolled back.';
     END CATCH

@@ -16,7 +16,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(home.router)
 
 # Get the absolute path to the static directory
 static_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
@@ -26,3 +25,5 @@ app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 # Jinja2 Templates
 templates = Jinja2Templates(directory="app/templates")
+
+app.include_router(home.router)

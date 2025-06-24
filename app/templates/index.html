@@ -33,6 +33,9 @@
                 <a href="#" class="nav-item" id="nav-glp-update" onclick="showSection('glp-update')">
                     GLP Update
                 </a>
+                <a href="#" class="nav-item" id="nav-epd-update" onclick="showSection('epd-update')">
+                    EPD Update
+                </a>
             </nav>
             <div class="sidebar-resizer"></div>
         </aside>
@@ -48,6 +51,8 @@
                 {% include 'update_policy_status_section.html' %}
                 <!-- GLP Update Section -->
                 {% include 'glp_update_section.html' %}
+                <!-- EPD Update Section -->
+                {% include 'epd_update_section.html' %}
             </div>
         </main>
     </div>

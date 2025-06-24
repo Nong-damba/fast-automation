@@ -5,6 +5,7 @@ from app.core.effective_date_generator import generate_sql_script
 from app.core.policy_amendment_generator import generate_sql_update_policy
 from app.core.update_policy_status_generator import generate_sql_update_status
 from app.core.glp_update_generator import generate_glp_update_sql
+from app.core.epd_update_generator import generate_epd_update_script
 
 templates = Jinja2Templates(directory="app/templates")
 router = APIRouter()
@@ -104,6 +105,36 @@ async def generate_glp_update_sql_route(request: Request):
         )
     except Exception as e:
         logger.error(f"Error generating GLP update SQL: {str(e)}")
+        return JSONResponse(
+            status_code=500,
+            content={"success": False, "message": "Internal server error"}
+        )
+
+@router.post("/generate-epd-update-sql")
+async def generate_epd_update_sql_route(
+    username: str = Form(...),
+    policy_no: str = Form(...),
+    epd_date: str = Form(...)
+):
+    """Generate SQL script for EPD update functionality."""
+    try:
+        if not all([username, policy_no, epd_date]):
+            return JSONResponse(
+                status_code=400,
+                content={"success": False, "message": "All fields are required"}
+            )
+        
+        sql_script = generate_epd_update_script(
+            username=username,
+            policy_no=policy_no,
+            epd_date=epd_date
+        )
+        
+        return JSONResponse(
+            content={"success": True, "sql_script": sql_script}
+        )
+        
+    except Exception as e:
         return JSONResponse(
             status_code=500,
             content={"success": False, "message": "Internal server error"}

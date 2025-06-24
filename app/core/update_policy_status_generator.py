@@ -99,8 +99,6 @@ BEGIN
         PRINT 'Policy status updated successfully.';
     END TRY
     BEGIN CATCH
-        ROLLBACK TRAN;
-        PRINT 'An error occurred. Update failed.';
         SELECT 
             ERROR_NUMBER() AS ErrorNumber,
             ERROR_SEVERITY() AS ErrorSeverity,
@@ -108,6 +106,8 @@ BEGIN
             ERROR_PROCEDURE() AS ErrorProcedure,
             ERROR_LINE() AS ErrorLine,
             ERROR_MESSAGE() AS ErrorMessage;
+        ROLLBACK TRAN;
+        PRINT 'An error occurred. Update failed.';
     END CATCH
 END;
 """

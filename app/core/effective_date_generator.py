@@ -1,4 +1,4 @@
-def generate_sql_script(input_content):
+def generate_sql_effective_date(input_content):
     """
     Generate SQL script from input content containing username and policy data
     

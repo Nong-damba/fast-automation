@@ -43,8 +43,6 @@ BEGIN
         PRINT 'EPD for policy {policy_no} successfully updated to {epd_date}!';
     END TRY
     BEGIN CATCH
-        ROLLBACK TRANSACTION;
-        PRINT 'Error occurred. Transaction rolled back.';
 
         SELECT 
             ERROR_NUMBER() AS ErrorNumber,
@@ -53,6 +51,9 @@ BEGIN
             ERROR_PROCEDURE() AS ErrorProcedure,
             ERROR_LINE() AS ErrorLine,
             ERROR_MESSAGE() AS ErrorMessage;
+            
+        ROLLBACK TRANSACTION;
+        PRINT 'Error occurred. Transaction rolled back.';
     END CATCH
 END;
 """ 

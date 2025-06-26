@@ -1,3 +1,6 @@
+import logging
+logger = logging.getLogger(__name__)
+
 from fastapi import APIRouter, Request, Form, UploadFile, File
 from fastapi.templating import Jinja2Templates
 from fastapi.responses import JSONResponse

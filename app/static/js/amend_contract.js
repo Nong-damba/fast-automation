@@ -5,6 +5,7 @@ export function initAmendContract() {
     const amendSqlCode = document.getElementById('amend-sql-code');
     const amendCopyBtn = document.getElementById('amend-copy-btn');
     const amendDownloadBtn = document.getElementById('amend-download-btn');
+    const amendEditBtn = document.getElementById('amend-edit-btn');
 
     amendForm && amendForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -39,6 +40,19 @@ export function initAmendContract() {
         }
         amendGenerateBtn.disabled = false;
         amendGenerateBtn.textContent = 'Generate SQL';
+    });
+
+    amendEditBtn && amendEditBtn.addEventListener('click', () => {
+        if (amendSqlCode.isContentEditable) {
+            amendSqlCode.contentEditable = 'false';
+            amendSqlCode.style.border = "1px solid transparent";
+            amendEditBtn.innerHTML = '<i class="fas fa-edit"></i> Edit';
+        } else {
+            amendSqlCode.contentEditable = 'true';
+            amendSqlCode.style.border = "1px solid #ccc";
+            amendEditBtn.innerHTML = '<i class="fas fa-save"></i> Save';
+            amendSqlCode.focus();
+        }
     });
 
     // Copy and download for Amend Contract

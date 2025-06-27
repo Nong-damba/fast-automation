@@ -5,6 +5,7 @@ export function initEpdUpdate() {
     const epdSqlCode = document.getElementById('epd-sql-code');
     const epdCopyBtn = document.getElementById('epd-copy-btn');
     const epdDownloadBtn = document.getElementById('epd-download-btn');
+    const epdEditBtn = document.getElementById('epd-edit-btn');
 
     epdForm && epdForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -47,6 +48,19 @@ export function initEpdUpdate() {
 
         epdGenerateBtn.disabled = false;
         epdGenerateBtn.textContent = 'Generate SQL';
+    });
+
+    epdEditBtn && epdEditBtn.addEventListener('click', () => {
+        if (epdSqlCode.isContentEditable) {
+            epdSqlCode.contentEditable = 'false';
+            epdSqlCode.style.border = "1px solid transparent";
+            epdEditBtn.innerHTML = '<i class="fas fa-edit"></i> Edit';
+        } else {
+            epdSqlCode.contentEditable = 'true';
+            epdSqlCode.style.border = "1px solid #ccc";
+            epdEditBtn.innerHTML = '<i class="fas fa-save"></i> Save';
+            epdSqlCode.focus();
+        }
     });
 
     epdCopyBtn && epdCopyBtn.addEventListener('click', () => {

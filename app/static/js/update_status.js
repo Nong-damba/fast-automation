@@ -5,6 +5,7 @@ export function initUpdateStatus() {
     const statusSqlCode = document.getElementById('status-sql-code');
     const statusCopyBtn = document.getElementById('status-copy-btn');
     const statusDownloadBtn = document.getElementById('status-download-btn');
+    const statusEditBtn = document.getElementById('status-edit-btn');
 
     statusForm && statusForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -39,6 +40,19 @@ export function initUpdateStatus() {
         }
         statusGenerateBtn.disabled = false;
         statusGenerateBtn.textContent = 'Generate SQL';
+    });
+
+    statusEditBtn && statusEditBtn.addEventListener('click', () => {
+        if (statusSqlCode.isContentEditable) {
+            statusSqlCode.contentEditable = 'false';
+            statusSqlCode.style.border = "1px solid transparent";
+            statusEditBtn.innerHTML = '<i class="fas fa-edit"></i> Edit';
+        } else {
+            statusSqlCode.contentEditable = 'true';
+            statusSqlCode.style.border = "1px solid #ccc";
+            statusEditBtn.innerHTML = '<i class="fas fa-save"></i> Save';
+            statusSqlCode.focus();
+        }
     });
 
     // Copy and download for Update Policy Status

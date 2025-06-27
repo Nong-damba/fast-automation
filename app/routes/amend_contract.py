@@ -15,3 +15,4 @@ async def generate_amend_contract_sql(
         return JSONResponse({"success": True, "sql_script": sql_script})
     except Exception as e:
         return JSONResponse({"success": False, "message": str(e), "sql_script": ""})
+

@@ -2,6 +2,20 @@ export function initSqlDisplay() {
     const sqlCode = document.getElementById('sql-code');
     const copyBtn = document.getElementById('copy-btn');
     const downloadBtn = document.getElementById('download-btn');
+    const editBtn = document.getElementById('edit-btn');
+
+    editBtn && editBtn.addEventListener('click', () => {
+        if (sqlCode.isContentEditable) {
+            sqlCode.contentEditable = 'false';
+            sqlCode.style.border = "1px solid transparent";
+            editBtn.innerHTML = '<i class="fas fa-edit"></i> Edit';
+        } else {
+            sqlCode.contentEditable = 'true';
+            sqlCode.style.border = "1px solid #ccc";
+            editBtn.innerHTML = '<i class="fas fa-save"></i> Save';
+            sqlCode.focus();
+        }
+    });
 
     // Copy SQL to clipboard
     copyBtn.addEventListener('click', () => {

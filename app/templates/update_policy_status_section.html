@@ -71,6 +71,10 @@
                     <i class="fas fa-copy"></i>
                     Copy
                 </button>
+                <button id="status-edit-btn" class="action-btn">
+                    <i class="fas fa-edit"></i>
+                    Edit
+                </button>
                 <button id="status-download-btn" class="action-btn">
                     <i class="fas fa-download"></i>
                     Download
@@ -78,5 +82,17 @@
             </div>
         </div>
         <pre><code id="status-sql-code" class="sql"></code></pre>
+        <div class="sql-execute-actions">
+            <select id="status-server-select" class="form-input small">
+                <option value="server1">server1</option>
+                <option value="server2">server2</option>
+            </select>
+            <select id="status-database-select" class="form-input small">
+                <option value="database1">database1</option>
+                <option value="database2">database2</option>
+            </select>
+            <button id="status-run-btn" class="action-btn run-btn">Run code</button>
+        </div>
+        <div id="status-execution-output" class="execution-output" style="display:none;"></div>
     </div>
 </div> 

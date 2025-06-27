@@ -268,4 +268,79 @@ textarea.form-input {
 
 .upload-section, .form-group {
     overflow: visible;
+}
+
+/* Modal Popup Styles */
+.popup-modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.25);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.popup-modal .popup-content {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.12);
+    padding: 2rem 2.5rem;
+    min-width: 340px;
+    max-width: 95vw;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+.popup-modal .popup-actions {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+}
+
+/* SQL Execute Actions (dropdowns + button) */
+.sql-execute-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 28rem;
+    margin-right: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding-left: 1rem; /* Optional left padding */
+}
+
+.sql-execute-actions .form-input.small {
+    width: 160px;
+    font-size: 0.95rem;
+    padding: 0.35rem 0.75rem;
+}
+
+.sql-execute-actions .run-btn {
+    padding: 0.4rem 1rem;
+}
+
+
+/* Execution Output Styling */
+.execution-output {
+    background: #f8f8f8;
+    border: 1px solid #eaeaea;
+    border-radius: 4px;
+    margin-top: 1rem;
+    padding: 1rem 1.2rem;
+    font-family: 'Fira Mono', 'Consolas', 'Menlo', 'Monaco', monospace;
+    font-size: 1rem;
+    color: #222;
+    max-width: 100%;
+    word-break: break-word;
+}
+.execution-output .log {
+    margin-bottom: 0.3rem;
+    white-space: pre-line;
+}
+.execution-output .log.error {
+    color: #b00020;
+    font-weight: 500;
 } 

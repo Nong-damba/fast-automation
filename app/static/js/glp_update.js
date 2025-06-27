@@ -5,6 +5,7 @@ export function initGlpUpdate() {
     const glpSqlCode = document.getElementById('glp-sql-code');
     const glpCopyBtn = document.getElementById('glp-copy-btn');
     const glpDownloadBtn = document.getElementById('glp-download-btn');
+    const glpEditBtn = document.getElementById('glp-edit-btn');
 
     glpForm && glpForm.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -53,6 +54,19 @@ export function initGlpUpdate() {
         
         glpGenerateBtn.disabled = false;
         glpGenerateBtn.textContent = 'Generate SQL';
+    });
+
+    glpEditBtn && glpEditBtn.addEventListener('click', () => {
+        if (glpSqlCode.isContentEditable) {
+            glpSqlCode.contentEditable = 'false';
+            glpSqlCode.style.border = "1px solid transparent";
+            glpEditBtn.innerHTML = '<i class="fas fa-edit"></i> Edit';
+        } else {
+            glpSqlCode.contentEditable = 'true';
+            glpSqlCode.style.border = "1px solid #ccc";
+            glpEditBtn.innerHTML = '<i class="fas fa-save"></i> Save';
+            glpSqlCode.focus();
+        }
     });
 
     // Copy and download for GLP Update

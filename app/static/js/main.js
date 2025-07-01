@@ -6,6 +6,7 @@ import { initAmendContract } from './amend_contract.js';
 import { initUpdateStatus } from './update_status.js';
 import { initGlpUpdate } from './glp_update.js';
 import { initEpdUpdate } from './epd_update.js';
+import { initFundNameChange } from './fund_name_change.js';
 import { initSqlExecution, initSharedSqlExecution } from './sql_runner.js';
 
 // Initialize all modules
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initUpdateStatus();
     initGlpUpdate();
     initEpdUpdate();
+    initFundNameChange();
     initSqlDisplay(); // For the section with shared/generic IDs
 
     // Initialize the "Run SQL" functionality for each section
@@ -26,5 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initSqlExecution('status');
     initSqlExecution('glp');
     initSqlExecution('epd');
+    initSqlExecution('fund');
     initSharedSqlExecution(); // For the section with shared/generic IDs
 });

@@ -6,6 +6,7 @@ from app.routes.amend_contract import router as amend_contract_router
 from app.routes.update_status import router as update_status_router
 from app.routes.glp_update import router as glp_update_router
 from app.routes.epd_update import router as epd_update_router
+from app.routes.fund_name_change import router as fund_name_change_router
 from app.routes.run_sql import router as run_sql_router
 
 router = APIRouter()
@@ -21,4 +22,5 @@ router.include_router(amend_contract_router)
 router.include_router(update_status_router)
 router.include_router(glp_update_router)
 router.include_router(epd_update_router)
+router.include_router(fund_name_change_router)
 router.include_router(run_sql_router)

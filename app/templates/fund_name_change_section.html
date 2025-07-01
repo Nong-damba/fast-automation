@@ -1,0 +1,63 @@
+<div id="fund-name-change" class="section" style="display: none;">
+    <div class="upload-section">
+        <h2>Fund Name Change</h2>
+        <p class="upload-description">Enter the details below to generate the SQL script for fund name change.</p>
+        <form id="fund-name-change-form" class="upload-form">
+            <div class="form-group">
+                <label for="fund-username">Username</label>
+                <input type="text" id="fund-username" class="form-input" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="fund-cusip-id">CUSIP ID</label>
+                <input type="text" id="fund-cusip-id" class="form-input" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="fund-parent-company-code">Parent Company Code</label>
+                <input type="text" id="fund-parent-company-code" class="form-input" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="fund-new-name">New Fund Name</label>
+                <input type="text" id="fund-new-name" class="form-input" required autocomplete="off">
+            </div>
+            <div class="form-group">
+                <label for="fund-new-description">New Fund Description</label>
+                <input type="text" id="fund-new-description" class="form-input" required autocomplete="off">
+            </div>
+            <button type="submit" class="submit-btn" id="fund-generate-btn">Generate SQL</button>
+        </form>
+    </div>
+    <div id="fund-sql-section" class="sql-section" style="display: none;">
+        <div class="sql-header">
+            <h3>Generated SQL Script</h3>
+            <div class="sql-actions">
+                <button id="fund-copy-btn" class="action-btn">
+                    <i class="fas fa-copy"></i>
+                    Copy
+                </button>
+                <button id="fund-edit-btn" class="action-btn">
+                    <i class="fas fa-edit"></i>
+                    Edit
+                </button>
+                <button id="fund-download-btn" class="action-btn">
+                    <i class="fas fa-download"></i>
+                    Download
+                </button>
+            </div>
+        </div>
+        <pre><code id="fund-sql-code" class="sql"></code></pre>
+        <div class="sql-execute-actions">
+            <select id="fund-server-select" class="form-input small">
+                <option value="server1">server1</option>
+                <option value="server2">server2</option>
+                <option value="AWSFASTDB01D">AWSFASTDB01D</option>
+            </select>
+            <select id="fund-database-select" class="form-input small">
+                <option value="database1">database1</option>
+                <option value="database2">database2</option>
+                <option value="se2FAST">se2FAST</option>
+            </select>
+            <button id="fund-run-btn" class="action-btn run-btn">Run code</button>
+        </div>
+        <div id="fund-execution-output" class="execution-output" style="display:none;"></div>
+    </div>
+</div> 

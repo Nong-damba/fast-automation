@@ -26,10 +26,11 @@ BEGIN
         DECLARE @AmendedPolicyNumber NVARCHAR(50) = '{amended_policy_no}'; -- new policy number to set
 
         -- Get user ID from login
-        DECLARE @userid UNIQUEIDENTIFIER = (
-            SELECT Usr_ID 
+        DECLARE @userid UNIQUEIDENTIFIER = ISNULL(
+            (SELECT TOP 1 Usr_ID 
             FROM Cc_Opt_Usr_UserLogin_S 
-            WHERE Usr_LOGIN = @UserLogin
+            WHERE Usr_LOGIN = @UserLogin),
+            'FFFFFFFF-0000-0000-0000-000000000000'
         );
 
         -- Get policy ID using current policy number

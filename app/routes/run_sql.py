@@ -27,6 +27,8 @@ async def run_sql(request: Request):
             "Trusted_Connection=yes;"
         )
         logs.append(f"Connecting to server: {server}")
+
+        # connect to the database
         conn = pyodbc.connect(conn_str, autocommit=False)
         logs.append(f"Connected to database: {database}")
         
@@ -69,5 +71,7 @@ async def run_sql(request: Request):
         if 'conn' in locals() and conn:
             conn.close()
             logs.append("Connection closed.")
-            
+    
+    # print("logs", logs)
+
     return JSONResponse(content={"logs": logs, "rows_affected": rows_affected, "error": error})

@@ -313,7 +313,7 @@ textarea.form-input {
 }
 
 .sql-execute-actions .form-input.small {
-    width: 160px;
+    width: 180px;
     font-size: 0.95rem;
     padding: 0.35rem 0.75rem;
 }

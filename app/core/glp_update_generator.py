@@ -41,10 +41,11 @@ def generate_glp_update_sql(username: str, policy_number: str, effective_date: s
         DECLARE @NoteText NVARCHAR(MAX) = '{note}';
 
         -- Get user ID
-        DECLARE @UserID UNIQUEIDENTIFIER = (
-            SELECT Usr_ID 
+        DECLARE @UserID UNIQUEIDENTIFIER = ISNULL(
+            (SELECT TOP 1 Usr_ID 
             FROM Cc_Opt_Usr_UserLogin_S 
-            WHERE Usr_LOGIN = @UserLogin
+            WHERE Usr_LOGIN = @UserLogin),
+            'FFFFFFFF-0000-0000-0000-000000000000'
         );
 
         -- Get Policy Header ID

@@ -33,9 +33,9 @@ async function executeSql(server, database, query, outputElement) {
         if (data.logs) {
             outputHtml += data.logs.map(log => `<div class="log">${log}</div>`).join('');
         }
-        if (data.rows_affected !== null && data.rows_affected !== undefined) {
-            outputHtml += `<div class="log"><b>Rows affected:</b> ${data.rows_affected}</div>`;
-        }
+        // if (data.rows_affected !== null && data.rows_affected !== undefined) {
+        //     outputHtml += `<div class="log"><b>Rows affected:</b> ${data.rows_affected}</div>`;
+        // }
         if (data.error) {
             outputHtml += `<div class="log error"><b>Error:</b> ${data.error}</div>`;
         }

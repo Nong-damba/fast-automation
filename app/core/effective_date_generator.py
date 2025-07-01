@@ -94,7 +94,7 @@ def generate_sql_content(username, policy_data):
     sql_lines.extend([
         "",
         "        COMMIT TRAN",
-        "        PRINT 'Effective date updated successfully'",
+        "        PRINT 'Script executed successfully'",
         "    END TRY",
         "    BEGIN CATCH",
         "        SELECT",

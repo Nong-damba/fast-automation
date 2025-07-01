@@ -24,10 +24,11 @@ BEGIN
         DECLARE @NewEPD DATETIME = '{epd_datetime}';
 
         -- Get user ID
-        DECLARE @UserID UNIQUEIDENTIFIER = (
-            SELECT Usr_ID 
+        DECLARE @UserID UNIQUEIDENTIFIER = ISNULL(
+            (SELECT TOP 1 Usr_ID 
             FROM Cc_Opt_Usr_UserLogin_S 
-            WHERE Usr_LOGIN = @UserLogin
+            WHERE Usr_LOGIN = @UserLogin),
+            'FFFFFFFF-0000-0000-0000-000000000000'
         );
 
         -- Update EPD date for the policy

@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Form
 from fastapi.responses import JSONResponse
-from app.core.epd_update_generator import generate_epd_update_script
+from app.core.sql_code_generator.epd_update_generator import generate_epd_update_script
 
 router = APIRouter()
 

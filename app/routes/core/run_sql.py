@@ -1,6 +1,14 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
+from dotenv import load_dotenv
+import os
 import pyodbc
+from app.core.config import DROPDOWN_CONFIG
+
+load_dotenv()
+
+username = os.getenv("SQL_USERNAME")
+password = os.getenv("SQL_PASSWORD")
 
 router = APIRouter()
 
@@ -16,18 +24,39 @@ async def run_sql(request: Request):
     error = None
     conn = None
 
+
     if not all([server, database, query]):
         return JSONResponse(status_code=400, content={"error": "Missing server, database, or query."})
 
     try:
+        # conn_str = (
+        #     f"DRIVER={{SQL Server}};"
+        #     f"SERVER={server};"
+        #     f"DATABASE={database};"
+        #     "Trusted_Connection=yes;"
+        # )
+
+        # conn_str = (
+        #     f"DRIVER={{ODBC Driver 17 for SQL Server}};"
+        #     f"SERVER={server};"
+        #     f"DATABASE={database};"
+        #     f"UID={username};"
+        #     f"PWD={password};"
+        # )
+
         conn_str = (
-            f"DRIVER={{SQL Server}};"
+            f"DRIVER={{ODBC Driver 18 for SQL Server}};"
             f"SERVER={server};"
             f"DATABASE={database};"
-            "Trusted_Connection=yes;"
+            f"UID={username};"
+            f"PWD={password};"
+            f"Encrypt=yes;"
+            f"TrustServerCertificate=yes;"
         )
-        logs.append(f"Connecting to server: {server}")
 
+        logs.append(f"Connecting to server: {server}")
+        
+        print("conn_str", conn_str)
         # connect to the database
         conn = pyodbc.connect(conn_str, autocommit=False)
         logs.append(f"Connected to database: {database}")
@@ -44,7 +73,7 @@ async def run_sql(request: Request):
             logs.append("Could not determine rows affected (statement may not be a DML command).")
         
         conn.commit()
-        logs.append("Code executed and transaction committed successfully.")
+        logs.append("Code executed successfully.")
         
     except pyodbc.Error as ex:
         sqlstate = ex.args[0]

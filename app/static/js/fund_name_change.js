@@ -92,4 +92,81 @@ export function initFundNameChange() {
         window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
     });
+
+    // --- Fund Name Change Table View Logic ---
+    const fundViewRowsBtn = document.getElementById('fund-view-rows-btn');
+    const fundReloadTableBtn = document.getElementById('fund-reload-table-btn');
+    const fundTableSection = document.getElementById('fund-table-section');
+    const fundTableContainer = document.getElementById('fund-table-container');
+    let lastFundTableRequest = null;
+
+    async function fetchAndRenderFundTable(server, database, cusip, parentCompanyCode) {
+        fundTableContainer.innerHTML = '<div>Loading...</div>';
+        try {
+            const response = await fetch('/fetch-current-rows-fund-name-change', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ server, database, cusip, parent_company_code: parentCompanyCode })
+            });
+            const data = await response.json();
+            if (data.error) {
+                fundTableContainer.innerHTML = `<div class=\"error\">${data.error}</div>`;
+            } else if (data.columns && data.rows) {
+                if (data.rows.length === 0) {
+                    fundTableContainer.innerHTML = '<div>No data found for this CUSIP and parent company code.</div>';
+                } else {
+                    // Transpose: fields as rows, records as columns
+                    let tableHtml = '<div style="overflow-x:auto;overflow-y:auto;max-height:350px;">';
+                    tableHtml += '<table class="epd-data-table" style="min-width:500px;width:auto;border-collapse:collapse;margin-top:10px;">';
+                    tableHtml += '<thead><tr>';
+                    tableHtml += '<th style="background:#f8f8f8;border:1px solid #eaeaea;padding:8px 10px;text-align:left;font-weight:600;">Field</th>';
+                    data.rows.forEach((_, idx) => {
+                        tableHtml += `<th style=\"background:#f8f8f8;border:1px solid #eaeaea;padding:8px 10px;text-align:left;font-weight:600;\">Record ${idx+1}</th>`;
+                    });
+                    tableHtml += '</tr></thead><tbody>';
+                    data.columns.forEach((col, colIdx) => {
+                        const rowStyle = colIdx % 2 === 0 ? 'background:#fff;' : 'background:#fafbfc;';
+                        tableHtml += `<tr style=\"${rowStyle}\"><td style=\"border:1px solid #eaeaea;padding:8px 10px;font-weight:600;\">${col}</td>`;
+                        data.rows.forEach(row => {
+                            tableHtml += `<td style=\"border:1px solid #eaeaea;padding:8px 10px;\">${row[colIdx] !== null ? row[colIdx] : ''}</td>`;
+                        });
+                        tableHtml += '</tr>';
+                    });
+                    tableHtml += '</tbody></table></div>';
+                    fundTableContainer.innerHTML = tableHtml;
+                }
+            } else {
+                fundTableContainer.innerHTML = '<div>Unexpected response from server.</div>';
+            }
+            fundTableSection.style.display = 'block';
+        } catch (err) {
+            fundTableContainer.innerHTML = `<div class=\"error\">${err.message}</div>`;
+        }
+    }
+
+    function getFundCurrentSelections() {
+        const server = document.getElementById('fund-server-select').value;
+        const database = document.getElementById('fund-database-select').value;
+        const cusip = document.getElementById('fund-cusip-id').value.trim();
+        const parentCompanyCode = document.getElementById('fund-parent-company-code').value.trim();
+        return { server, database, cusip, parentCompanyCode };
+    }
+
+    fundViewRowsBtn && fundViewRowsBtn.addEventListener('click', () => {
+        const { server, database, cusip, parentCompanyCode } = getFundCurrentSelections();
+        if (!server || !database || !cusip || !parentCompanyCode) {
+            alert('Please select server, database, and enter a CUSIP and parent company code.');
+            return;
+        }
+        lastFundTableRequest = { server, database, cusip, parentCompanyCode };
+        fetchAndRenderFundTable(server, database, cusip, parentCompanyCode);
+    });
+
+    fundReloadTableBtn && fundReloadTableBtn.addEventListener('click', () => {
+        if (lastFundTableRequest) {
+            fetchAndRenderFundTable(lastFundTableRequest.server, lastFundTableRequest.database, lastFundTableRequest.cusip, lastFundTableRequest.parentCompanyCode);
+        } else {
+            alert('No table to reload. Please view current rows first.');
+        }
+    });
 } 

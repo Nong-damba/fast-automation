@@ -89,4 +89,85 @@ export function initEpdUpdate() {
         window.URL.revokeObjectURL(url);
         document.body.removeChild(a);
     });
+
+    // --- EPD Table View Logic ---
+    const epdViewRowsBtn = document.getElementById('epd-view-rows-btn');
+    const epdReloadTableBtn = document.getElementById('epd-reload-table-btn');
+    const epdTableSection = document.getElementById('epd-table-section');
+    const epdTableContainer = document.getElementById('epd-table-container');
+    const epdLogsSection = document.getElementById('epd-logs-section');
+    let lastTableRequest = null;
+
+    async function fetchAndRenderTable(server, database, policyNumber) {
+        epdTableContainer.innerHTML = '<div>Loading...</div>';
+        epdLogsSection.style.display = 'none';
+        epdLogsSection.innerHTML = '';
+        try {
+            const response = await fetch('/fetch-current-rows-epd-update', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ server, database, policy_number: policyNumber })
+            });
+            const data = await response.json();
+            if (data.error) {
+                epdTableContainer.innerHTML = `<div class=\"error\">${data.error}</div>`;
+            } else if (data.columns && data.rows) {
+                if (data.rows.length === 0) {
+                    epdTableContainer.innerHTML = '<div>No data found for this policy number.</div>';
+                } else {
+                    let tableHtml = '<div style="overflow-x:auto;overflow-y:auto;max-height:350px;">';
+                    tableHtml += '<table class="epd-data-table" style="min-width:500px;width:auto;border-collapse:collapse;margin-top:10px;">';
+                    tableHtml += '<thead><tr>';
+                    tableHtml += '<th style="background:#f8f8f8;border:1px solid #eaeaea;padding:8px 10px;text-align:left;font-weight:600;">Field</th>';
+                    data.rows.forEach((_, idx) => {
+                        tableHtml += `<th style=\"background:#f8f8f8;border:1px solid #eaeaea;padding:8px 10px;text-align:left;font-weight:600;\">Record ${idx+1}</th>`;
+                    });
+                    tableHtml += '</tr></thead><tbody>';
+                    data.columns.forEach((col, colIdx) => {
+                        const rowStyle = colIdx % 2 === 0 ? 'background:#fff;' : 'background:#fafbfc;';
+                        tableHtml += `<tr style=\"${rowStyle}\"><td style=\"border:1px solid #eaeaea;padding:8px 10px;font-weight:600;\">${col}</td>`;
+                        data.rows.forEach(row => {
+                            tableHtml += `<td style=\"border:1px solid #eaeaea;padding:8px 10px;\">${row[colIdx] !== null ? row[colIdx] : ''}</td>`;
+                        });
+                        tableHtml += '</tr>';
+                    });
+                    tableHtml += '</tbody></table></div>';
+                    epdTableContainer.innerHTML = tableHtml;
+                }
+            } else {
+                epdTableContainer.innerHTML = '<div>Unexpected response from server.</div>';
+            }
+            epdTableSection.style.display = 'block';
+        } catch (err) {
+            epdTableContainer.innerHTML = `<div class=\"error\">${err.message}</div>`;
+        }
+    }
+
+    function getCurrentSelections() {
+        const server = document.getElementById('epd-server-select').value;
+        const database = document.getElementById('epd-database-select').value;
+        const policyNumber = document.getElementById('epd-policy').value.trim();
+        return { server, database, policyNumber };
+    }
+
+    epdViewRowsBtn && epdViewRowsBtn.addEventListener('click', () => {
+        const { server, database, policyNumber } = getCurrentSelections();
+        if (!server || !database || !policyNumber) {
+            alert('Please select server, database, and enter a policy number.');
+            return;
+        }
+        lastTableRequest = { server, database, policyNumber };
+        fetchAndRenderTable(server, database, policyNumber);
+    });
+
+    epdReloadTableBtn && epdReloadTableBtn.addEventListener('click', () => {
+        if (lastTableRequest) {
+            fetchAndRenderTable(lastTableRequest.server, lastTableRequest.database, lastTableRequest.policyNumber);
+        } else {
+            alert('No table to reload. Please view current rows first.');
+        }
+    });
+
+    // --- Keep logs section separate ---
+    // (Assume logs are handled elsewhere, but ensure this section is not affected by table reloads)
 } 

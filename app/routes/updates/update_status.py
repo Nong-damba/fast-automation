@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Form
 from fastapi.responses import JSONResponse
-from app.core.update_policy_status_generator import generate_sql_update_status
+from app.core.sql_code_generator.update_policy_status_generator import generate_sql_update_status
 
 router = APIRouter()
 

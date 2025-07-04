@@ -1,6 +1,6 @@
 from fastapi import APIRouter, UploadFile, File
 from fastapi.responses import JSONResponse
-from app.core.effective_date_generator import generate_sql_effective_date
+from app.core.sql_code_generator.effective_date_generator import generate_sql_effective_date
 
 router = APIRouter()
 

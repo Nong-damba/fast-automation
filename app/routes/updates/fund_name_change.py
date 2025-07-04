@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Form
 from fastapi.responses import JSONResponse
-from app.core.fund_name_change_generator import generate_sql_fund_name_change
+from app.core.sql_code_generator.fund_name_change_generator import generate_sql_fund_name_change
 
 router = APIRouter()
 

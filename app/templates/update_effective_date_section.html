@@ -42,16 +42,20 @@
         <pre><code id="sql-code" class="sql"></code></pre>
         <div class="sql-execute-actions">
             <select id="server-select" class="form-input small">
-                <option value="server1">server1</option>
-                <option value="server2">server2</option>
-                <option value="AWSFASTDB01D">AWSFASTDB01D</option>
+                <!-- Options will be populated dynamically -->
             </select>
             <select id="database-select" class="form-input small">
-                <option value="database1">database1</option>
-                <option value="database2">database2</option>
-                <option value="se2FAST">se2FAST</option>
+                <!-- Options will be populated dynamically -->
             </select>
             <button id="run-btn" class="action-btn run-btn">Run code</button>
+            <button id="view-rows-btn" class="action-btn">View Current Rows</button>
+        </div>
+        <div id="table-section" class="table-section" style="display:none; margin-top: 20px; background: #fff; border: 1px solid #eaeaea; border-radius: 6px; box-shadow: 0 1px 4px rgba(0,0,0,0.03); padding: 0 0 1.2rem 0;">
+            <div style="display: flex; align-items: center; justify-content: space-between; padding: 1rem 1.2rem 0.5rem 1.2rem;">
+                <span style="font-size: 1.05rem; font-weight: 600; color: #222;">Current Table Data</span>
+                <button id="reload-table-btn" class="action-btn" style="margin-left: 10px;">Reload Table</button>
+            </div>
+            <div id="table-container" style="overflow-x:auto; overflow-y:auto; max-height:350px; padding: 0 1.2rem;"></div>
         </div>
         <div id="execution-output" class="execution-output" style="display:none;"></div>
     </div>

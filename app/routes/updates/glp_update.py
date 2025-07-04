@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
-from app.core.glp_update_generator import generate_glp_update_sql
+from app.core.sql_code_generator.glp_update_generator import generate_glp_update_sql
 
 router = APIRouter()
 
